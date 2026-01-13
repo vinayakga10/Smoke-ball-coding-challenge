@@ -1,6 +1,6 @@
 const { getArnieQuotes } = require('./get-arnie-quotes');
 
-const urls = [
+let urls = [
   'http://www.smokeballdev.com/arnie0',
   'http://www.smokeballdev.com/arnie1',
   'http://www.smokeballdev.com/arnie2',
@@ -34,4 +34,19 @@ test('code to be executed in less than 400ms', async () => {
   
   expect(seconds).toBe(0);
   expect(nanos / 1000 / 1000).toBeLessThan(400);
+});
+
+test('multiple failures handled correctly', async () => {
+  urls = [
+  'http://www.smokeballdev.com/fail0',
+  'http://www.smokeballdev.com/fail1',
+  'http://www.smokeballdev.com/arnie0',
+  ];
+  const results = await getArnieQuotes(urls);
+
+  expect(results.length).toBe(3);
+  expect(results[0]).toEqual({ 'FAILURE': 'Your request has been terminated' });
+  expect(results[1]).toEqual({ 'FAILURE': 'Your request has been terminated' });
+
+  expect(results[2]).toEqual({ 'Arnie Quote': 'Get to the chopper' });
 });
