@@ -1,0 +1,36 @@
+trigger:
+  branches:
+    include:
+      - main
+      - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+# Checkout code
+- checkout: self
+
+# Install Node.js
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
+
+# Install dependencies
+- script: |
+    npm install
+  displayName: 'Install dependencies'
+
+# Run tests
+- script: |
+    npm test
+  displayName: 'Run unit tests'
+
+# Publish test results (Jest / Mocha / JUnit)
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/test-results/*.xml'
+    failTaskOnFailedTests: true

@@ -13,10 +13,11 @@ const fetchArnieQuote = async (url) => {
   }
 };
 
-const getArnieQuotes = async (urls) => {
+const getArnieQuotes = (urls) => {
   return Promise.all(urls.map(fetchArnieQuote));
 };
 
+
 module.exports = {
-  getArnieQuotes,
+  getArnieQuotes
 };
