@@ -2,11 +2,11 @@
   "name": "@smokeball-dev/javascript-developer-test",
   "version": "2.0.1",
   "description": "",
-  "main": "./index.js",
+  "main": "./src/mock-http-interface.js",
   "author": "Smokeball Development Team",
   "license": "MIT",
   "scripts": {
-    "build": "node src/mock-http-interface.js",
+    "build": "esbuild src/mock-http-interface.js --bundle --outfile=dist/bundle.js --minify",
     "test": "jest"
   },
   "dependencies": {
@@ -25,6 +25,7 @@
     ]
   },
   "devDependencies": {
+    "esbuild": "^0.27.3",
     "jest-junit": "^16.0.0"
   }
 }

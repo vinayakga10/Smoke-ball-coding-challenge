@@ -18,15 +18,13 @@ steps:
 - script: npm install
   displayName: 'Install dependencies'
 
-- script: npm run build
-  displayName: 'Build project'
-
-- script: npm test
+- script: npm run test
   displayName: 'Run tests'
 
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
+- script: npm run build
+  displayName: 'Create package'
+  
+- task: PublishPipelineArtifact@1
   inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/test-results/*.xml'
-    failTaskOnFailedTests: true
+    targetPath: 'dist'
+    artifact: 'test-azure-devops-app'
