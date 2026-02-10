@@ -6,6 +6,7 @@
   "author": "Smokeball Development Team",
   "license": "MIT",
   "scripts": {
+    "build": "node src/mock-http-interface.js",
     "test": "jest"
   },
   "dependencies": {
